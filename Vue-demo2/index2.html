@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id=app >
+        <div v-if=isShow>展示的内容</div>
+        <div >{{wow}}</div>
+        <div >123</div>
+        <button @click=ClickBTN>点击变变变</button>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 只有当实例被创建时就已经存在于 data 中的属性才是响应式的
+        var data ={
+            isShow:"ture",
+            wow:''
+        }
+        // Object.freeze(data)
+        var vm=new Vue({
+            el:"#app",
+            data,
+            methods:{
+                ClickBTN(){
+                    this.isShow=!this.isShow
+                }
+            }
+            
+        })
+        
+        console.log
+    </script>
+</body>
+</html>
