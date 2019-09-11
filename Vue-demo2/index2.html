@@ -8,10 +8,18 @@
 </head>
 <body>
     <div id=app >
-        <div v-if=isShow>展示的内容</div>
-        <div >{{wow}}</div>
+        <div >展示的内容</div>
+        <div v-once>{{wow}}</div> 
+        <!-- v-once 只渲染一次 -->
+        <div>{{wow}}</div>
         <div >123</div>
-        <button @click=ClickBTN>点击变变变</button>
+        <div>{{rawHTML}}</div>
+        <div v-html=rawHTML></div>   
+        <!-- v-bind:href=xxx <==> :href=xxx 动态将标签属性与值绑定-->
+        <a target="_blank" :href=Mylink>打开网站</a>
+        <!-- v-html=xxx -->
+        <button v-bind:disabled=isShow  @click=ChangeLink>修改网址</button>
+        <button @click=ClickBTN>点击打开左边按钮</button>
     </div>
     
 
@@ -20,7 +28,9 @@
         // 只有当实例被创建时就已经存在于 data 中的属性才是响应式的
         var data ={
             isShow:"ture",
-            wow:''
+            wow:'',
+            rawHTML:'<P style="color:red">这是一个段落</P>',
+            Mylink:"http://www.baidu.com"
         }
         // Object.freeze(data)
         var vm=new Vue({
@@ -29,6 +39,9 @@
             methods:{
                 ClickBTN(){
                     this.isShow=!this.isShow
+                },
+                ChangeLink(){
+                    this.Mylink="http://www.google.com"
                 }
             }
             
