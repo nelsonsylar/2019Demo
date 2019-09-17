@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slot</title>
+</head>
+<body>
+        <div id="app">
+            <!-- 在使用具名插槽时,要用template包裹并使其v-slot=相应的名字 -->
+            <wow-low>
+                <template v-slot:footer>这是一个footer</template>
+                这是默认内容
+                <template v-slot:header>这是一个header</template>
+            </wow-low>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            //决定插槽内容位置的是组件而不是使用组件的标签
+            Vue.component('wow-low',{
+               
+                template:`
+                <div>
+                    <slot name='header'>
+                        
+                    </slot>
+                    <slot>
+                        这是一个具名插槽的默认部分
+                    </slot>
+                    <slot name='footer'>
+                        
+                    </slot>
+                </div>`
+               
+            })
+            var vm =new Vue({
+                el:'#app'
+            })
+        </script>
+    </body>
+</html>
