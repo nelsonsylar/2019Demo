@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 对象v-for时默认只显示键值对的值 -->
+        <div v-for="value in object">
+            {{value}}
+        </div>
+        
+        <!-- 对象v-for时默认只显示键值对的值,可选的是键和index -->
+        <div v-for="(value,name,index) in object">
+                {{index}},{{name}}:{{value}}
+        </div>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+            <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+            <label for="john">John</label>
+        <div v-for='name in checkedNames'>{{name}}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                object:{
+                    title: 'How to do lists in Vue',
+                    author: 'Jane Doe',
+                    publishedAt: '2016-04-10'                    
+                },
+                checkedNames:[]
+            }
+        })
+    </script>
+</body>
+</html>

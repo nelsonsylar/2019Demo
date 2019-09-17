@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件之间的值传递</title>
+</head>
+<body>
+        <div id="app">
+            <baibai :middleman="fuchuanzi"></baibai>
+            <div >
+                <todo-item></todo-item>
+                <todo-item  :style="{ fontSize: fontsize + 'em' }" v-on:enlarge-text="fontsize += $event"></todo-item>
+                <!-- 这里使用$event来访问到了$emit事件的值 -->
+            </div>
+           
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script>
+                Vue.component('baibai',{
+                    // 注意html会把驼峰命名法改为小写
+                    props:['middleman'],
+                    template:'<div>{{middleman}}</div>'
+                })
+                Vue.component('todo-item', {//创建组件时最好不要用驼峰命名法
+                    //@click="最好加上双引号"
+                data(){
+                    return{
+                        text:1
+                    }
+                },
+                template: `<div>这是个待办项
+                                <button @click="$emit('enlarge-text',text)">增大字号
+                                </button>
+                            </div>`
+                })
+                var vm=new Vue({
+                    el:'#app',
+                    data:{
+                        fuchuanzi:'父传子',
+                        fontsize:1
+                    }
+                })
+            </script>
+
+    
+</body>
+</html>

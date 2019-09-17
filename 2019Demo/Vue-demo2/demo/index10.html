@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>html与vue的命名法</title>
+</head>
+<body>
+    <div id="app">
+        <wow-low prop-attr='这是一个组件'></wow-low>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 组件注册时能用短横线,也能用驼峰,但是在html会被自动处理成短横线
+        Vue.component('wow-low',{
+            props:[`prop-attr`],//props里面能用短横线,也能用驼峰,但是在html会被自动处理成短横线
+            template:'<div>{{propAttr}} <slot>你好</slot></div>'
+            //非常重要!!!!!!!!!!!!     这个里面{{能用驼峰命名法,不能用短横线命名法}}
+            
+            //如果一个组件后 <wow-low>这里面增加内容是无效的</wow-low>
+            //插槽的作用就是当使用组件时,使得上述有用
+            //如果<wow-low> 没有包含一个 <slot> 元素，则该组件起始标签和结束标签之间的任何内容都会被抛弃。
+        })
+        var vm =new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>

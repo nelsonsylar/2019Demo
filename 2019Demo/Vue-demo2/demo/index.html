@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1.data的调用 -->
+    <div id="app">
+        {{ message }}
+    </div>
+    <!--2.attribute的动态绑定-->
+    <div id="app-2">
+        <span v-bind:title="message">
+          鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div>
+    <!--3.逻辑控制展示-->
+    <div id="app-3">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+    <!--4.循环控制展示 -->
+    <div id="app-4">
+        <p v-for="todo in todos">
+            {{todo.text}}
+        </p>
+    </div>
+    <!--5.事件监听 -->
+    <div id="app-5">
+        <div>{{message}}</div>
+        <button @click='reverse'>click me reverse</button>
+    </div>
+
+    <!-- 6.v-model实现双向绑定 -->
+    <div id="app-6">
+        <div>{{message}}</div>
+        <input type="text" v-model="message">
+        <div id='myComponent'>
+            <!-- 7.组件及其复用,每一个组件都有自己的data-->
+            <button-1></button-1>  
+            <button-1></button-1> 
+            <button-1></button-1>  
+        </div>    
+    </div>
+
+    <!-- 7.组件的其他作用 -->
+    <div id="app-7">
+        <ol>
+            <palpal 
+                v-for='item in groceryList'
+                v-bind:todo="item"
+                v-bind:key="item.id">
+                <!-- 这里需要为每个组件提供一个“key”，方便后面操作 -->
+            </palpal>
+        </ol>
+        
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    })
+    app.message="wow"
+    var app2 = new Vue({
+    el: '#app-2',
+    data: {
+        message: '页面加载于 ' + new Date().toLocaleString()
+    }
+    })
+
+
+    var app3 = new Vue({
+    el: '#app-3',
+    data: {
+      seen: false
+    }
+    })    
+
+    var app4 = new Vue({
+        el:"#app-4",
+        data:{
+            todos:[
+                {text:"reading"},
+                {text:"working"},
+                {text:"playing"},
+            ]
+        }
+    })
+    
+    var app5 = new Vue({
+        el:'#app-5',
+        data:{
+            message:true
+        },
+        methods:{             //注意methods不是method
+            reverse(){        //与reverse:function(){}相同
+                this.message=!this.message
+            }
+        }
+    })
+    // 组件注册必须要在new Vue之前才有用,同时里面是可以放new Vue({})里的其他数据的
+    Vue.component('button-1', {
+        data(){
+            return{
+                count:0
+            }
+        },
+        template: '<button @click="count++">click {{count}} times</button>'
+    })
+
+    var app6 = new Vue({
+        el:'#app-6',
+        data:{
+            message:"type content"
+        }
+    })
+    
+    Vue.component("palpal",{
+        props:["todo"],//注todo里面的值是字符串,这里相当于父组件给子组件传值
+        //本来子组件是没有todo对象的
+        template:"<li>{{todo.text}}</li>"
+    })
+    var app7 = new Vue({
+        el:'#app-7',
+        data:{
+            groceryList:[
+                {id:0,text:'milk'},
+                {id:1,text:'vegetables'},
+                {id:2,text:'banana'}
+            ]
+        }
+    })
+
+    </script>
+
+</body>
+</html>

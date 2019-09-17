@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo3</title>
+</head>
+<body>
+    <div id=app>
+        <span>{{message}}</span>
+        <!-- 对于任何复杂逻辑，你都应当使用计算属性,并且可直接用{{}}引用 -->
+        <span>{{reverseMesaage}}</span>
+        <div>{{a}}</div>
+
+        <!-- 这里通过方法来实现计算属性的功能-->
+        <div>{{reverseMessage3()}}</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                message:'Hello',
+                a:'1'
+            },
+            //函数也好,计算属性也好,要想用{{}}的方式调用,必须要有return
+            //但是函数一定要在后面加上括号,如下
+            //<span>{{reverseMesaage}}</span> 这是计算属性
+            //<div>{{reverseMessage3()}}</div> 这是函数
+            //计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才会重新求值
+            computed:{
+                
+                reverseMesaage(){
+                    //注意计算属性是有返回值的
+                    return this.message.split('').reverse().join('')
+                }
+            },
+            methods:{
+                reverseMessage2(){
+                    this.a=this.message.split('').reverse().join('')
+                },
+                reverseMessage3(){
+                    return this.message.split('').reverse().join('')
+                }
+            },
+            // 生命hook是方法(函数)
+            mounted(){
+                this.reverseMessage2()
+            }
+        })
+    </script>
+
+</body>
+</html>
