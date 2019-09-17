@@ -148,7 +148,10 @@ img {
   background-color: #f4f4f4
 }
 
-
+.with-bottom-nav {
+  padding-bottom: 50px;
+  box-sizing: border-box
+}
 
 .block-item {
   position: relative;

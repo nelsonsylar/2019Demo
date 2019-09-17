@@ -1,5 +1,5 @@
 let url={
-    hotList:'index/hotLists',
+    hotLists:'index/hotLists',
     banner:'index/banner',
     topList:'category/topList',
     rank:'category/rank',
